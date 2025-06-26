@@ -2,6 +2,30 @@
 
 namespace EmployeeWage
 {
+    class CompanyEmpWage
+    {
+        public string company;
+        public int wagePerHour;
+        public int maxWorkingDays;
+        public int maxWorkingHours;
+        public int totalWage;
+
+        public CompanyEmpWage(string company, int wagePerHour, int maxWorkingDays, int maxWorkingHours)
+        {
+            this.company = company;
+            this.wagePerHour = wagePerHour;
+            this.maxWorkingDays = maxWorkingDays;
+            this.maxWorkingHours = maxWorkingHours;
+            this.totalWage = 0;
+        }
+
+        // to print result
+        public void PrintWage()
+        {
+            Console.WriteLine($"Total Wage for Company {company}: Rs.{totalWage}");
+        }
+    }
+
     class EmployeeWage
     {
         // Constants
@@ -9,22 +33,22 @@ namespace EmployeeWage
         const int IS_FULL_TIME = 1;
         const int IS_PART_TIME = 2;
 
-        // Method to compute wage for one company
-        public void ComputeWageForCompany(string company, int wagePerHour, int maxWorkingDays, int maxWorkingHours)
+        // Method to compute wage and store in company object
+        public void ComputeWage(CompanyEmpWage companyEmpWage)
         {
-            int totalWage = 0;
             int totalWorkingDays = 0;
             int totalWorkingHours = 0;
+            int totalWage = 0;
 
             Random random = new Random();
 
-            Console.WriteLine($"\n ===={company} Wage Computation Started ====");
+            Console.WriteLine($"\n--- Wage Calculation for {companyEmpWage.company} ---");
 
-            while (totalWorkingDays < maxWorkingDays && totalWorkingHours < maxWorkingHours)
+            while (totalWorkingDays < companyEmpWage.maxWorkingDays && totalWorkingHours < companyEmpWage.maxWorkingHours)
             {
                 totalWorkingDays++;
 
-                int empCheck = random.Next(0, 3);
+                int empCheck = random.Next(0, 3); 
                 int empHours = 0;
 
                 switch (empCheck)
@@ -32,46 +56,48 @@ namespace EmployeeWage
                     case IS_FULL_TIME:
                         empHours = 8;
                         break;
-
                     case IS_PART_TIME:
                         empHours = 4;
                         break;
-
                     case IS_ABSENT:
-                    default:
                         empHours = 0;
                         break;
                 }
 
-                if (totalWorkingHours + empHours > maxWorkingHours)
+                if (totalWorkingHours + empHours > companyEmpWage.maxWorkingHours)
                 {
-                    empHours = maxWorkingHours - totalWorkingHours;
+                    empHours = companyEmpWage.maxWorkingHours - totalWorkingHours;
                 }
 
                 totalWorkingHours += empHours;
-                int dailyWage = empHours * wagePerHour;
+                int dailyWage = empHours * companyEmpWage.wagePerHour;
                 totalWage += dailyWage;
 
-                Console.WriteLine($"Day {totalWorkingDays}: Hours = {empHours}, Wage = Rs.{dailyWage}, Total Hours = {totalWorkingHours}");
+                Console.WriteLine($"Day {totalWorkingDays}: Hours = {empHours}, Daily Wage = Rs.{dailyWage}, Total Hours = {totalWorkingHours}");
             }
 
-            Console.WriteLine($"Total Wage for {company}: Rs.{totalWage}");
-            Console.WriteLine($"===={company} Wage Computation Completed ====\n");
+            // Save total wage inside the company object
+            companyEmpWage.totalWage = totalWage;
         }
+
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the employee wage problem");
+            Console.WriteLine("Welcome to the employee wage problem ");
 
-            EmployeeWage empWageCalculator = new EmployeeWage();
+            EmployeeWage wageCalculator = new EmployeeWage();
 
-            // for Company A
-            empWageCalculator.ComputeWageForCompany("Tata", 20, 20, 100);
+            // Create companies
+            CompanyEmpWage tata = new CompanyEmpWage("Tata", 20, 20, 100);
+            CompanyEmpWage reliance = new CompanyEmpWage("Reliance", 25, 22, 110);
+            CompanyEmpWage infosys = new CompanyEmpWage("Infosys", 18, 26, 95);
 
-            // for Company B
-            empWageCalculator.ComputeWageForCompany("Reliance", 25, 22, 110);
+            wageCalculator.ComputeWage(tata);
+            wageCalculator.ComputeWage(reliance);
+            wageCalculator.ComputeWage(infosys);
 
-            // for Company C
-            empWageCalculator.ComputeWageForCompany("Infosys", 18, 26, 95);
+            tata.PrintWage();
+            reliance.PrintWage();
+            infosys.PrintWage();
         }
     }
 }
