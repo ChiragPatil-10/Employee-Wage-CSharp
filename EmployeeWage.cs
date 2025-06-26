@@ -12,10 +12,8 @@ namespace EmployeeWage
         const int MAX_WORKING_DAYS = 20;
         const int MAX_WORKING_HOURS = 100;
 
-        public static void Main(string[] args)
+        public void ComputeWage()
         {
-            Console.WriteLine("Welcome to the employee wage problem");
-
             int totalWage = 0;
             int totalWorkingDays = 0;
             int totalWorkingHours = 0;
@@ -26,7 +24,7 @@ namespace EmployeeWage
             {
                 totalWorkingDays++;
 
-                int empCheck = random.Next(0, 3);  
+                int empCheck = random.Next(0, 3);
                 int empHours = 0;
 
                 switch (empCheck)
@@ -62,6 +60,14 @@ namespace EmployeeWage
             Console.WriteLine($"Total Working Days: {totalWorkingDays}");
             Console.WriteLine($"Total Working Hours: {totalWorkingHours}");
             Console.WriteLine($"Total Monthly Wage: Rs.{totalWage}");
+        }
+
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to the employee wage problem");
+
+            EmployeeWage emp = new EmployeeWage();
+            emp.ComputeWage(); 
         }
     }
 }
