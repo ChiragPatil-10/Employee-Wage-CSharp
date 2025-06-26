@@ -16,22 +16,26 @@ namespace EmployeeWage
 
             Random random = new Random();
             int empCheck = random.Next(0, 3);
+
             int empHours = 0;
 
-            if (empCheck == IS_FULL_TIME)
+            switch (empCheck)
             {
-                Console.WriteLine("Employee is Present (Full-Time)");
-                empHours = 8;
-            }
-            else if (empCheck == IS_PART_TIME)
-            {
-                Console.WriteLine("Employee is Present (Part-Time)");
-                empHours = 4;
-            }
-            else
-            {
-                Console.WriteLine("Employee is Absent");
-                empHours = 0;
+                case IS_FULL_TIME:
+                    Console.WriteLine("Employee is Present (Full-Time)");
+                    empHours = 8;
+                    break;
+
+                case IS_PART_TIME:
+                    Console.WriteLine("Employee is Present (Part-Time)");
+                    empHours = 4;
+                    break;
+
+                case IS_ABSENT:
+                default:
+                    Console.WriteLine("Employee is Absent");
+                    empHours = 0;
+                    break;
             }
 
             int dailyWage = empHours * WAGE_PER_HOUR;
