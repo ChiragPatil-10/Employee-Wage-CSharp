@@ -60,7 +60,7 @@ namespace EmployeeWage
         }
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the employee wage problem - UC8 Multiple Companies");
+            Console.WriteLine("Welcome to the employee wage problem");
 
             EmployeeWage empWageCalculator = new EmployeeWage();
 
