@@ -4,7 +4,7 @@ namespace EmployeeWage
 {
     class EmployeeWage
     {
-        //Constants value cannot be change
+        // Constants
         const int IS_PRESENT = 1;
         const int WAGE_PER_HOUR = 20;
         const int FULL_DAY_HOURS = 8;
@@ -15,12 +15,13 @@ namespace EmployeeWage
 
             Random random = new Random();
             int empCheck = random.Next(0, 2); 
+
             if (empCheck == IS_PRESENT)
             {
                 Console.WriteLine("Employee is Present");
 
                 int dailyWage = WAGE_PER_HOUR * FULL_DAY_HOURS;
-                Console.WriteLine("Employee Daily Wage: ₹" + dailyWage);
+                Console.WriteLine("Employee Daily Wage: Rs." + dailyWage);
             }
             else
             {
